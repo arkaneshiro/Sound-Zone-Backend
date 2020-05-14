@@ -5,6 +5,7 @@ const cors = require("cors");
 const { environment } = require('./config');
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const soundsRouter = require("./routes/sounds");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(cors({ origin: true }));
 // Routes
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/sounds", soundsRouter);
 
 // Catch unhandled requests and forward to error handler.
 app.use((req, res, next) => {

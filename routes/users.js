@@ -7,7 +7,7 @@ const { getUserToken, requireAuth } = require("../auth");
 
 const router = express.Router();
 
-// get userId
+// get user info
 router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
     const id = req.params.id;
     const user = await User.findByPk(id)
@@ -84,11 +84,11 @@ router.post("/token", asyncHandler(async (req, res) => {
     });
 }));
 
+// delete a user
 router.delete("/:id(\\d+)", requireAuth, asyncHandler( async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const user = await User.findByPk(id);
 
-    // console.log(req.user.id)
     if (user.id !== req.user.id) {
         const err = Error('Unauthorized');
         err.status = 401;
