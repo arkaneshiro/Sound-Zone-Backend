@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     imgUrl: {
       allowNull: false,
-      type: DataTypes.STRING(50)
+      type: DataTypes.STRING
     },
   }, {});
   User.associate = function(models) {

@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
+    waveUrl: {
+        allowNull: false,
+        type: DataTypes.STRING
+    },
     description: {
       allowNull: false,
       type: DataTypes.STRING

@@ -7,12 +7,12 @@ const { getUserToken, requireAuth } = require("../auth");
 
 const router = express.Router();
 
+// get userId
 router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
     const id = req.params.id;
     const user = await User.findByPk(id)
     res.json({
         user: {
-            id: user.id,
             username: user.username,
             bio: user.bio,
             imgUrl: user.imgUrl,
@@ -20,15 +20,16 @@ router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
     });
 }));
 
+// sign up
 router.post("/", asyncHandler(async (req, res) => {
     const {
         username,
         email,
         password,
-        bio
+        bio,
+        imgUrl,
     } = req.body;
 
-    const imgUrl = 'placeholder text';
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
         username,
@@ -50,6 +51,7 @@ router.post("/", asyncHandler(async (req, res) => {
     });
 }));
 
+// login
 router.post("/token", asyncHandler(async (req, res) => {
     const {
         username,

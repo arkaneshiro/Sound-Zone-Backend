@@ -23,6 +23,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      waveUrl: {
+        allowNull: false,
+        type: Sequelize.STRING
+    },
       description: {
         allowNull: false,
         type: Sequelize.STRING
