@@ -43,4 +43,23 @@ router.post("/", requireAuth, asyncHandler( async (req, res) => {
     });
 }));
 
+// delete a sound
+router.delete("/:id", requireAuth, asyncHandler( async (req, res) => {
+    const soundId = parseInt(req.params.id, 10);
+    const sound = await Sound.findByPk(soundId);
+
+    if (sound.userId !== req.user.id) {
+        const err = Error('Unauthorized');
+        err.status = 401;
+        err.message = 'Not authorized to delete this Sound'
+        err.title = 'Unauthorized'
+        throw err;
+    }
+
+    if (sound) {
+        await sound.destroy();
+        res.status(204).send(`Deleted sound with id of ${req.params.id}.`);
+    }
+}));
+
 module.exports = router;
