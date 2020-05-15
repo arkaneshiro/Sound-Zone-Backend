@@ -1,22 +1,35 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 
-const { User } = require("../db/models");
-const { asyncHandler, handleValidationErrors } = require("../utils");
+const { User, Sound } = require("../db/models");
+const { asyncHandler } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
 
 const router = express.Router();
 
 // get user info
-router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
+router.get("/:id", asyncHandler(async (req, res) => {
     const id = req.params.id;
     const user = await User.findByPk(id)
     res.json({
         user: {
+            id: user.id,
             username: user.username,
             bio: user.bio,
             imgUrl: user.imgUrl,
         },
+    });
+}));
+
+// gets one user's sounds
+router.get("/:id/sounds", asyncHandler(async (req, res) => {
+    const userId = req.params.id;
+    const sounds = await Sound.findAll({
+        include: { model: User, attributes: ["username", "id"]},
+        where: { userId}
+    })
+    res.json({
+        sounds
     });
 }));
 
@@ -85,7 +98,7 @@ router.post("/token", asyncHandler(async (req, res) => {
 }));
 
 // delete a user
-router.delete("/:id(\\d+)", requireAuth, asyncHandler( async (req, res) => {
+router.delete("/:id", requireAuth, asyncHandler( async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const user = await User.findByPk(id);
 

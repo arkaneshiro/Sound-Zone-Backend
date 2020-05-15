@@ -1,8 +1,8 @@
 const express = require("express");
 
 const { Sound } = require("../db/models");
-const { asyncHandler, handleValidationErrors } = require("../utils");
-const { getUserToken, requireAuth } = require("../auth");
+const { asyncHandler } = require("../utils");
+const { requireAuth } = require("../auth");
 
 const router = express.Router();
 
