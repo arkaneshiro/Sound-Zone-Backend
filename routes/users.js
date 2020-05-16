@@ -26,7 +26,19 @@ router.get("/:id/sounds", asyncHandler(async (req, res) => {
     const userId = req.params.id;
     const sounds = await Sound.findAll({
         include: { model: User, attributes: ["username", "id"]},
-        where: { userId}
+        where: { userId }
+    })
+    res.json({
+        sounds
+    });
+}));
+
+// gets a users 'feed' data,
+// TODO: update this to get only data of user + followings
+router.get("/:id/feed", asyncHandler(async (req, res) => {
+    const userId = req.params.id;
+    const sounds = await Sound.findAll({
+        include: { model: User, attributes: ["username", "id"]},
     })
     res.json({
         sounds
