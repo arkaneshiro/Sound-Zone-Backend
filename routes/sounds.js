@@ -1,10 +1,21 @@
 const express = require("express");
 
-const { Sound } = require("../db/models");
+const { Sound, User } = require("../db/models");
 const { asyncHandler } = require("../utils");
 const { requireAuth } = require("../auth");
 
 const router = express.Router();
+
+// get sound details
+router.get("/:id", asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const sound = await Sound.findByPk(id,{
+        include: { model: User, attributes: ["username", "id", "imgUrl"]}
+        })
+    res.json({
+        sound
+    });
+}));
 
 // create a sound
 router.post("/", requireAuth, asyncHandler( async (req, res) => {
