@@ -9,3 +9,5 @@ Frontend for Soundzone here: [Sound-Zone](https://github.com/arkaneshiro/Sound-Z
 - [Front End Routes](https://github.com/arkaneshiro/Sound-Zone/blob/master/Documentation/frontEndRoutes.md)
 - [Back End Routes](https://github.com/arkaneshiro/Sound-Zone/blob/master/Documentation/backEndRoutes.md)
 - [Schema Image](https://github.com/arkaneshiro/Sound-Zone/blob/master/Documentation/schema.png)
+
+## Instructions for migrating & seeding database
