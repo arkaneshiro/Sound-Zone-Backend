@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Sound, {
       foreignKey: 'userId'
     });
+    User.hasMany(models.Follows, {
+      foreignKey: 'followerId',
+      foreignKey: 'followedId'
+    })
   };
 
   User.prototype.validatePassword = function (password) {
