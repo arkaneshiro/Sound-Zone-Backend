@@ -45,6 +45,16 @@ router.get("/:id/feed", asyncHandler(async (req, res) => {
     });
 }));
 
+// gets username's and id's of all users to run frontend search feature
+router.get("/", asyncHandler(async (req, res) => {
+    const users = await User.findAll({
+        attributes: ['id', 'username']
+    })
+    res.json({
+        users
+    })
+}));
+
 // sign up
 router.post("/", asyncHandler(async (req, res) => {
     const {

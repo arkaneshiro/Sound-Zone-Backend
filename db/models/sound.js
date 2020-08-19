@@ -32,7 +32,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Sound.associate = function(models) {
-    Sound.belongsTo(models.User);
+    Sound.belongsTo(models.User, {
+      foreignKey: 'userId'
+    });
   };
   return Sound;
 };

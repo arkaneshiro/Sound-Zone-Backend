@@ -32,8 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     });
     User.hasMany(models.Follows, {
       foreignKey: 'followerId',
-      foreignKey: 'followedId'
-    })
+    });
+    User.hasMany(models.Follows, {
+      foreignKey: 'followedId',
+    });
   };
 
   User.prototype.validatePassword = function (password) {
