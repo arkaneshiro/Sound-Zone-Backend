@@ -58,24 +58,38 @@ router.get("/", asyncHandler(async (req, res) => {
 // gets ids of users followed by user making fetch call
 router.get("/followed", requireAuth, asyncHandler(async (req, res) => {
     const id = req.user.id
-    // console.log(id)
     const follows = await Follows.findAll({
-        attributes: ['followedId'],
+        attributes: [['followedId', 'id']],
         where: {
             followerId: id
         },
-        include: { model: User, attributes: ["username",]},
-
     })
-    data = follows.map(follow => {
-        const info = {}
-        info.id = follow.followedId;
-        info.username = follow.User.username;
-        return info
-    })
-    res.json({
+    res.json(
         follows
+    )
+}));
+
+// follow a user
+router.post("/follow", requireAuth, asyncHandler( async (req, res) => {
+    const {
+        followerId,
+        followedId
+    } = req.body;
+
+    const newFollow = await Follows.create({
+        followerId,
+        followedId
+    });
+
+    const follows = await Follows.findAll({
+        attributes: [['followedId', 'id']],
+        where: {
+            followerId: followerId
+        },
     })
+    res.status(201).json(
+        follows
+    )
 }));
 
 // sign up
