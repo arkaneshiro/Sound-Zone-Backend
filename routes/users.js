@@ -56,6 +56,7 @@ router.get("/:id/feed", asyncHandler(async (req, res) => {
                 id: [...followIdArray, userId]
             }
         },
+        order: [['createdAt', 'DESC']]
     })
     res.json({
         sounds
