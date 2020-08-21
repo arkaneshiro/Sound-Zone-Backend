@@ -1,14 +1,14 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 
-const { User, Sound } = require("../db/models");
+const { User, Sound, Follows } = require("../db/models");
 const { asyncHandler } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
 
 const router = express.Router();
 
 // get user info
-router.get("/:id", asyncHandler(async (req, res) => {
+router.get("/:id/getUserInfo", asyncHandler(async (req, res) => {
     const id = req.params.id;
     const user = await User.findByPk(id)
     res.json({
@@ -52,6 +52,29 @@ router.get("/", asyncHandler(async (req, res) => {
     })
     res.json({
         users
+    })
+}));
+
+// gets ids of users followed by user making fetch call
+router.get("/followed", requireAuth, asyncHandler(async (req, res) => {
+    const id = req.user.id
+    // console.log(id)
+    const follows = await Follows.findAll({
+        attributes: ['followedId'],
+        where: {
+            followerId: id
+        },
+        include: { model: User, attributes: ["username",]},
+
+    })
+    data = follows.map(follow => {
+        const info = {}
+        info.id = follow.followedId;
+        info.username = follow.User.username;
+        return info
+    })
+    res.json({
+        follows
     })
 }));
 

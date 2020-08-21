@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors({ origin: true }));
 
 // Routes
-app.use("/", indexRouter);
+// app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/sounds", soundsRouter);
 

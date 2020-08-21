@@ -15,6 +15,12 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        followerId: 3,
+        followedId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ],{} )
   },
 
