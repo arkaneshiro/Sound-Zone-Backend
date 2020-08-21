@@ -92,6 +92,26 @@ router.post("/follow", requireAuth, asyncHandler( async (req, res) => {
     )
 }));
 
+// unfollow a user
+router.delete("/unfollow", requireAuth, asyncHandler( async (req, res) => {
+    const {
+        followerId,
+        followedId
+    } = req.body;
+
+    const toDelete = await Follows.findOne({
+        where: {
+            followerId: followerId,
+            followedId: followedId
+        },
+    });
+
+    if (toDelete) {
+        await toDelete.destroy();
+        res.status(204).send();
+    }
+}));
+
 // sign up
 router.post("/", asyncHandler(async (req, res) => {
     const {
@@ -171,7 +191,7 @@ router.delete("/:id", requireAuth, asyncHandler( async (req, res) => {
 
     if (user) {
         await user.destroy();
-        res.status(204).send(`Deleted user with id of ${req.params.id}.`);
+        res.status(204).send();
     }
 }));
 
