@@ -36,9 +36,26 @@ router.get("/:id/sounds", asyncHandler(async (req, res) => {
 // gets a users 'feed' data,
 // TODO: update this to get only data of user + followings
 router.get("/:id/feed", asyncHandler(async (req, res) => {
+    console.log('woooooww')
     const userId = req.params.id;
+
+    const follows = await Follows.findAll({
+        attributes: [['followedId', 'id']],
+        where: {
+            followerId: userId
+        },
+    })
+
+    const followIdArray = follows.map(follow => follow.id)
+
     const sounds = await Sound.findAll({
-        include: { model: User, attributes: ["username", "id"]},
+        include: {
+            model: User,
+            attributes: ["username", "id"],
+            where: {
+                id: [...followIdArray, userId]
+            }
+        },
     })
     res.json({
         sounds
@@ -46,7 +63,7 @@ router.get("/:id/feed", asyncHandler(async (req, res) => {
 }));
 
 // gets username's and id's of all users to run frontend search feature
-router.get("/", asyncHandler(async (req, res) => {
+router.get("/allUsers", asyncHandler(async (req, res) => {
     const users = await User.findAll({
         attributes: ['id', 'username']
     })
