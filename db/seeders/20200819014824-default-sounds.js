@@ -29,7 +29,7 @@ module.exports = {
         userId: 3,
         soundUrl: "https://res.cloudinary.com/dgzcv1mcs/video/upload/v1589790749/Soundzone/02_Horsepower_dvby6s.mp3",
         imageUrl: "https://res.cloudinary.com/dgzcv1mcs/image/upload/v1589790758/Soundzone/images_uh1rxq.jpg",
-        waveUrl: "https://res.cloudinary.com/dgzcv1mcs/video/upload/fl_waveform,co_black,b_white/Soundzone/02_Horsepower_dvby6s.mp3",
+        waveUrl: "https://res.cloudinary.com/dgzcv1mcs/video/upload/fl_waveform,co_black,b_white/Soundzone/02_Horsepower_dvby6s.png",
         description: "insane",
         name: "Horsepower - CJ Bolland",
         playCount: 0,
