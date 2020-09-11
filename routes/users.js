@@ -36,7 +36,6 @@ router.get("/:id/sounds", asyncHandler(async (req, res) => {
 // gets a users 'feed' data,
 // TODO: update this to get only data of user + followings
 router.get("/:id/feed", asyncHandler(async (req, res) => {
-    console.log('woooooww')
     const userId = req.params.id;
 
     const follows = await Follows.findAll({
