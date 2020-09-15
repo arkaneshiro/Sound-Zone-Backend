@@ -134,10 +134,13 @@ router.delete("/unfollow", requireAuth, asyncHandler( async (req, res) => {
 
 // sign up
 router.post("/", validateUserSignUp, asyncHandler(async (req, res) => {
+
+    // if errors exist returns 422 error
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() })
     }
+
     const {
         username,
         email,
@@ -168,7 +171,7 @@ router.post("/", validateUserSignUp, asyncHandler(async (req, res) => {
 }));
 
 // login
-router.post("/token", asyncHandler(async (req, res) => {
+router.post("/token", asyncHandler(async (req, res, next) => {
     const {
         username,
         password,
@@ -181,6 +184,8 @@ router.post("/token", asyncHandler(async (req, res) => {
     });
     const token = getUserToken(user);
 
+
+    // throws error if user doesn't exist or can't be validated
     if (!user || !user.validatePassword(password)) {
         console.log('wow')
         const err = new Error("Login failed");
