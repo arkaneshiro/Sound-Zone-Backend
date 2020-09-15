@@ -5,8 +5,6 @@ const { User } = require("./db/models");
 
 const validateUserSignUp = [
     check("username")
-        // .exists({ checkFalsy: true })
-        // .withMessage("username required")
         .isLength({ max: 50 })
         .withMessage("First name cannot be more than 50 characters long."),
     check('username').custom(value => {
@@ -17,8 +15,6 @@ const validateUserSignUp = [
         });
     }),
     check("email")
-        // .exists({ checkFalsy: true })
-        // .withMessage("email required")
         .isEmail()
         .withMessage("valid email address required"),
     check('email').custom(value => {
@@ -28,17 +24,6 @@ const validateUserSignUp = [
             }
         });
     }),
-    // check('password').custom((value, { req }) => {
-    //     if (value !== req.body.passwordConfirm) {
-    //         throw new Error('Password confirmation is incorrect');
-    //     }
-    // })
-    // check("bio")
-    //     .exists({ checkFalsy: true })
-    //     .withMessage("bio required"),
-    // check("imgUrl")
-    //     .exists({ checkFalsy: true })
-    //     .withMessage("image url required"),
 ];
 
 module.exports = {
