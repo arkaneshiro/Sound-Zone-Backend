@@ -182,6 +182,7 @@ router.post("/token", asyncHandler(async (req, res) => {
     const token = getUserToken(user);
 
     if (!user || !user.validatePassword(password)) {
+        console.log('wow')
         const err = new Error("Login failed");
         err.status = 401;
         err.title = "Login failed";

@@ -20,7 +20,7 @@ const validateUserSignUp = [
     check('email').custom(value => {
         return User.findOne({where: { email: value }}).then(user => {
             if (user) {
-            return Promise.reject('is already in use');
+                return Promise.reject('is already in use');
             }
         });
     }),

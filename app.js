@@ -32,7 +32,6 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   const isProduction = environment === "production";
-  // console.error(err.errors)
   res.json({
     title: err.title || "Server Error",
     message: err.message,
