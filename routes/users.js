@@ -1,9 +1,12 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const { validationResult } = require('express-validator');
+
 
 const { User, Sound, Follows } = require("../db/models");
 const { asyncHandler } = require("../utils");
 const { getUserToken, requireAuth } = require("../auth");
+const { validateUserSignUp } = require("../validations")
 
 const router = express.Router();
 
@@ -130,7 +133,11 @@ router.delete("/unfollow", requireAuth, asyncHandler( async (req, res) => {
 }));
 
 // sign up
-router.post("/", asyncHandler(async (req, res) => {
+router.post("/", validateUserSignUp, asyncHandler(async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() })
+    }
     const {
         username,
         email,
