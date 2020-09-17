@@ -26,11 +26,8 @@ app.use((req, res, next) => {
   next(err);
 });
 
-// Custom error handlers.
-
-// Generic error handler.
+// Error handler.
 app.use((err, req, res, next) => {
-  console.error(err)
   res.status(err.status || 500);
   const isProduction = environment === "production";
   res.json({

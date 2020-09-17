@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     waveUrl: {
-        allowNull: false,
-        type: DataTypes.STRING
+      allowNull: false,
+      type: DataTypes.STRING
     },
     description: {
       allowNull: false,
