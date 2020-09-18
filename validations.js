@@ -25,6 +25,13 @@ const validateUserSignUp = [
   }),
 ];
 
+const validateSoundPost = [
+  check("soundUrl")
+    .exists({checkFalsy: true})
+    .withMessage("please select a sound to upload")
+]
+
 module.exports = {
-  validateUserSignUp
+  validateUserSignUp,
+  validateSoundPost
 };

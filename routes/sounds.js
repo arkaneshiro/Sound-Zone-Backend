@@ -1,8 +1,11 @@
 const express = require("express");
+const { validationResult } = require('express-validator');
 
 const { Sound, User } = require("../db/models");
 const { asyncHandler } = require("../utils");
 const { requireAuth } = require("../auth");
+const { validateSoundPost } = require("../validations")
+
 
 const router = express.Router();
 
@@ -19,7 +22,11 @@ router.get("/:id", asyncHandler(async (req, res) => {
 }));
 
 // create a sound
-router.post("/", requireAuth, asyncHandler( async (req, res, next) => {
+router.post("/", requireAuth, validateSoundPost, asyncHandler( async (req, res, next) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() })
+  }
   const {
     userId,
     soundUrl,
